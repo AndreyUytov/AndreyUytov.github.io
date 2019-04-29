@@ -60,7 +60,7 @@ const renderFrame = function (ctx, raindrops) {
 }
 
 const setup = function () {
-  const DROPS = 400;
+  const DROPS = 600;
 
   const canvas = document.querySelector(`.can`);
   canvas.width = Screen.WIDTH;
