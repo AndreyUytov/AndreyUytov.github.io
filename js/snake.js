@@ -95,7 +95,11 @@ const isCrushed = function (snake) {
     return crush;
 };
 
-const moveSnake = function (snake) {
+const moveSnake = function (snake, apples) {
+    apples.forEach( (it, i) => {
+        checkCoordinateApple(snake, it, i);
+    } );
+
     let snakeHead = snake[snake.length - 1];
     let snakeEnd = snake[0];
 
@@ -123,7 +127,6 @@ const moveSnake = function (snake) {
         snake.push(snakeEnd);
         snake.splice(0, 1);
     };
-
 
     document.addEventListener('keydown', function(evt) {
         evt.preventDefault();
@@ -188,19 +191,15 @@ const renderFrame = function(ctx, apples, snake) {
         it.render(ctx);
     } );
 
-    apples.forEach( (it, i) => {
-        checkCoordinateApple(snake, it, i);
-    } );
-
     isCrushed(snake) ? snake = snake.splice(0, snake.length, new UserSnake(0, 0)) : null;
 
-    moveSnake(snake);
+    moveSnake(snake, apples);
 
 };
 
 createStartSnake(ctx,snake);
 setInterval(() => {
     renderFrame(ctx, apples, snake);
-}, 1000/10);
+}, 1000/8);
 
 
