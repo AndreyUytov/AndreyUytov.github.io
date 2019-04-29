@@ -5,7 +5,7 @@ const Screen = {
 
 const Snake = {
     SIZE: 30,
-    LENGTH: 15,
+    LENGTH: 1,
     X_COORDINATE: 0,
     Y_COORDINATE: 0,
     RIGHT: 1,
