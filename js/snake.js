@@ -5,7 +5,7 @@ const Screen = {
 
 const Snake = {
     SIZE: 30,
-    LENGTH: 1,
+    LENGTH: 3,
     X_COORDINATE: 0,
     Y_COORDINATE: 0,
     RIGHT: 1,
@@ -95,37 +95,31 @@ const isCrushed = function (snake) {
     return crush;
 };
 
-const moveSnake = function (snake, apples) {
-    apples.forEach( (it, i) => {
-        checkCoordinateApple(snake, it, i);
-    } );
-
+const moveSnake = function (snake) {
+    
     let snakeHead = snake[snake.length - 1];
-    let snakeEnd = snake[0];
+    let snakeEnd = snake.shift();
+    snakeEnd.vektor = snakeHead.vektor;
 
     if (snakeHead.vektor == Snake.RIGHT) {
         snakeEnd.x = snakeHead.x + Snake.SIZE;
         snakeEnd.y = roundOffSnakeSIZE(snakeHead.y);
         snake.push(snakeEnd);
-        snake.splice(0, 1);
     };
     if (snakeHead.vektor == Snake.DOWN) {
         snakeEnd.y = snakeHead.y + Snake.SIZE;
         snakeEnd.x = roundOffSnakeSIZE(snakeHead.x);
         snake.push(snakeEnd);
-        snake.splice(0, 1);
     };
     if (snakeHead.vektor == Snake.LEFT) {
         snakeEnd.x = snakeHead.x - Snake.SIZE;
         snakeEnd.y = roundOffSnakeSIZE(snakeHead.y);
         snake.push(snakeEnd);
-        snake.splice(0, 1);
     };
     if (snakeHead.vektor == Snake.UP) {
         snakeEnd.y = snakeHead.y - Snake.SIZE;
         snakeEnd.x = roundOffSnakeSIZE(snakeHead.x);
         snake.push(snakeEnd);
-        snake.splice(0, 1);
     };
 
     document.addEventListener('keydown', function(evt) {
@@ -155,16 +149,31 @@ const isOffScreenMove = function (snake) {
 };
 
 const checkCoordinateApple = function (snake, apple, i) {
-    snake.forEach( (it) => {
-        if(it.x == apple.x && it.y == apple.y) {
-            snake.unshift(new UserSnake(snake[0].x - Snake.SIZE, snake[snake.length - 1].y, snake[0].vektor));
+    const snakeHeader = snake[snake.length - 1];
+        if(snakeHeader.x == apple.x && snakeHeader.y == apple.y) {
+            if (snakeHeader.vektor == Snake.RIGHT) {
+                let newElementCoordX = snakeHeader.x + Snake.SIZE;
+                snake.unshift(new UserSnake(newElementCoordX, snakeHeader.y, snakeHeader.vektor));
+            }
+            if (snakeHeader.vektor == Snake.LEFT) {
+                let newElementCoordX = snakeHeader.x - Snake.SIZE;
+                snake.unshift(new UserSnake(newElementCoordX, snakeHeader.y, snakeHeader.vektor));
+            }
+            if (snakeHeader.vektor == Snake.UP) {
+                let newElementCoordY = snakeHeader.y - Snake.SIZE;
+                snake.unshift(new UserSnake(snakeHeader.x, newElementCoordY, snakeHeader.vektor));
+            }
+            if (snakeHeader.vektor == Snake.DOWN) {
+                let newElementCoordY = snakeHeader.y + Snake.SIZE;
+                snake.unshift(new UserSnake(snakeHeader.x, newElementCoordY, snakeHeader.vektor));
+            };
+            
             apples.forEach ( (it) => {
                 if(it == apple) {
                     apples.splice(i, 1);
                 }
             });
         }
-    } )
 };
 
 const apples = new Array(APPLS).fill('').map( (it) => {
@@ -185,7 +194,10 @@ const renderFrame = function(ctx, apples, snake) {
 
     isOffScreenMove(snake);
 
-    apples.forEach( (it) => it.render(ctx) );
+    apples.forEach( (it, i) => {
+        checkCoordinateApple(snake, it, i);
+        it.render(ctx);
+    } );
 
     snake.forEach( (it) => {
         it.render(ctx);
@@ -200,6 +212,6 @@ const renderFrame = function(ctx, apples, snake) {
 createStartSnake(ctx,snake);
 setInterval(() => {
     renderFrame(ctx, apples, snake);
-}, 1000/8);
+}, 1000/10);
 
 
