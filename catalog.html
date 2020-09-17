@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./index.css">
+  <title>Catalog</title>
+</head>
+<body>
+
+<!-- SVG-stars для рейтинга и комментариев -->
+<svg style="display: none;">
+  <symbol id="full-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 18.0737L5.82 22L7.46 14.6L2 9.62105L9.19 8.97895L12 2L14.81 8.97895L22 9.62105L16.54 14.6L18.18 22L12 18.0737Z" fill="#EC8453"/>
+  </symbol>
+  <symbol id="half-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22 9.62105L14.81 8.96842L12 2L9.19 8.97895L2 9.62105L7.46 14.6L5.82 22L12 18.0737L18.18 22L16.55 14.6L22 9.62105ZM12 16.1053V6.31579L13.71 10.5684L18.09 10.9684L14.77 14L15.77 18.5053L12 16.1053Z" fill="#EC8453"/>
+  </symbol>
+  <symbol id="empty-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22 9.62105L14.81 8.96842L12 2L9.19 8.97895L2 9.62105L7.46 14.6L5.82 22L12 18.0737L18.18 22L16.55 14.6L22 9.62105ZM12 16.1053L8.24 18.4947L9.24 13.9895L5.92 10.9579L10.3 10.5579L12 6.31579L13.71 10.5684L18.09 10.9684L14.77 14L15.77 18.5053L12 16.1053Z" fill="#EC8453"/>
+  </symbol>
+  <symbol id="comment-marker" width="38" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path opacity="0.14" fill-rule="evenodd" clip-rule="evenodd" d="M20.1455 35.72C20.3455 34.88 20.1655 34 19.6055 33.08L10.1255 17.42C9.56547 16.46 9.00547 15.72 8.44547 15.2C9.00547 14.76 9.56547 14.04 10.1255 13.04L18.0194 0H9.41253L0.105469 14.54V15.92L15.0455 39.26L18.5255 37.58C19.4455 37.14 19.9855 36.52 20.1455 35.72ZM27.1725 0L17.8655 14.54V15.92L32.8055 39.26L36.2855 37.58C37.2055 37.14 37.7455 36.52 37.9055 35.72C38.1055 34.88 37.9255 34 37.3655 33.08L27.8855 17.42C27.3255 16.46 26.7655 15.72 26.2055 15.2C26.7655 14.76 27.3255 14.04 27.8855 13.04L35.7794 0H27.1725Z" fill="#EC966D"/>
+  </symbol>
+</svg>
+<!-- SVG-stars для рейтинга -->
+<header class="page-header">
+  <section class="header-block container">
+    <div class="header-left-block__wrapper">
+      <div class="header-left-block">
+        <div class="header-left-block__inner-wrapper">
+          <a href="index.html">
+            <img class="header-left-block__logo" src="./src/images/content/KRASUNYA.png" width="140" height="18"
+            alt="logo-krasunya"/>
+          </a>
+          <button class="header-left-block__catalog-snap snap" type="button">
+            Каталог косметики
+          </button>
+          <button class="header-left-block__search-snap snap" type="button">
+            <span class="visually-hidden">Открыть форму поиска</span>
+          </button>
+          <form class="header-left-block__search-form visually-hidden">
+            <div class="search-form__inner-wrapper">
+              <button class="search-form__close-snap snap" type="button">
+                <span class="visually-hidden">
+                  Закрыть форму поиска
+                </span>
+              </button>
+              <input class="search-form__input" type="search" />
+            </div>
+            <button class="search-form__submit-snap snap" type="submit">
+              <span class="visually-hidden">
+                Выполнить поиск
+              </span>
+            </button>
+          </form>
+          <div class="header-left-block__progress-bar visually-hidden">
+            <span class="bar">
+              <span class="scale"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-right-block">
+      <nav class="header-right-block__site-nav" style="position: fixed;">
+        <ul class="site-nav__list nav-list">
+          <li>
+            <a href="login-favorite.html" class="site-nav__item site-nav__item--favorite">
+              <span class="visually-hidden">Избранное</span>
+            </a>
+          </li>
+          <li>
+            <a href="login-profile.html" class="site-nav__item site-nav__item--login">
+              <span class="visually-hidden">Личный кабинет</span>
+            </a>
+          </li>
+          <li>
+            <a href="order.html" class="site-nav__item site-nav__item--basket">
+              <span class="visually-hidden">Корзина</span>
+            </a>
+          </li>
+        </ul>
+        <button class="site-nav__btn btn" type="button">
+          Подбор косметики
+        </button>
+      </nav>
+    </div>
+  </section>
+</header>
+
+  <main class="page-main--catalog container">
+    <nav class="breadcrumbs-nav">
+      <ul class="breadcrumbs-nav__list">
+        <li>
+          <a href="index.html" class="breadcrumbs-nav__link link">
+            Главная
+          </a>
+        </li>
+        <li>
+          <a class="breadcrumbs-nav__link link link--active">
+            Уход за лицом
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="filter-block">
+      <h2 class="filter-block__title">
+        Фильтр
+      </h2>
+      <form class="filter-block__filter-form filter-form">
+        <fieldset class="filter-form__price filter-form__fieldset">
+          <div class="filter-form__price-top-wrapper">
+            <legend class="filter-form__legend">Цена</legend>
+            <label class="filter-form__label">
+              <input class="visually-hidden" type="checkbox" name="price-check">
+              <span class="filter-form__checkbox checkbox"></span> Скидки
+            </label>
+          </div>
+          <div class="wrapper-price-range">
+            <div class="price-range__scale">
+              <div class="price-range__bar" style="left: 10px; width: 190px;"></div>
+              <div class="price-range__toggle price-range__toggle--min" style="left: 10px;"  ></div>
+              <div class="price-range__toggle price-range__toggle--max" style="left: 200px;"></div>
+            </div>
+            <div class="wrapper-price-input">
+              <label class="filter-form__label">
+                <span class="visually-hidden">min price</span>
+                <input class="filter-form__input filter-form__input--min" type="text" value="930">
+              </label>
+              <label class="filter-form__label">
+                <span class="visually-hidden">max price</span>
+                <input class="filter-form__input filter-form__input--max" type="text" value="25093">
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="filter-form__skin filter-form__fieldset">
+          <legend class="filter-form__legend">Тип кожи</legend>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="text-skin-check">
+            <span class="filter-form__checkbox checkbox"></span> Текстурированная
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="bold-skin-check">
+            <span class="filter-form__checkbox checkbox"></span> Жирная
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="norm-skin-check">
+            <span class="filter-form__checkbox checkbox"></span> Нормальная
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="combine-skin-check">
+            <span class="filter-form__checkbox checkbox"></span> Комбинированная
+          </label>
+        </fieldset>
+
+        <fieldset class="filter-form__skin filter-form__fieldset">
+          <legend class="filter-form__legend">Возраст</legend>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="20-25-ago-check">
+            <span class="filter-form__checkbox checkbox"></span> 20-25 лет
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="25-30-ago-check">
+            <span class="filter-form__checkbox checkbox"></span> 25-30 лет
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="30-40-ago-check">
+            <span class="filter-form__checkbox checkbox"></span> 30-40 лет
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="40-50-ago-check">
+            <span class="filter-form__checkbox checkbox"></span> 40-50 лет
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="50-ago-check">
+            <span class="filter-form__checkbox checkbox"></span> 50 лет и более
+          </label>
+        </fieldset>
+
+        <fieldset class="filter-form__effect filter-form__fieldset">
+          <legend class="filter-form__legend">Эффект</legend>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="akne-effect-check">
+            <span class="filter-form__checkbox checkbox"></span> Активные акне
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="post-akne-effect-check">
+            <span class="filter-form__checkbox checkbox"></span> Постакне/Покраснения, рубцы, шелушения, Неровный рельеф кожи
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="dry-skin-effect-check">
+            <span class="filter-form__checkbox checkbox"></span> Сухая кожа + Акне
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="bold-skin-effect-check">
+            <span class="filter-form__checkbox checkbox"></span> Жирная кожа + Акне
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="checkbox" name="normal-effect-check">
+            <span class="filter-form__checkbox checkbox"></span> Нет дополнительной проблемы
+          </label>
+        </fieldset>
+
+        <fieldset class="filter-form__care filter-form__fieldset">
+          <legend class="filter-form__legend">Уход</legend>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="radio" name="care-radio" checked/>
+            <span class="filter-form__radio radio"></span> Дневной
+          </label>
+          <label class="filter-form__label">
+            <input class="visually-hidden" type="radio" name="care-radio" />
+            <span class="filter-form__radio radio"></span> Ночной
+          </label>
+        </fieldset>
+        <button type="submit" class="filter-form__submit-btn btn-fon">Применить фильтры</button>
+        <button type="reset" class="filter-form__btn btn">Сбросить фильтры</button>
+      </form>
+    </section>
+
+    <section class="production-list-block">
+      <h2 class="production-list-block__title">
+        Уход за лицом
+      </h2>
+      <div class="production-list-block__tags">
+        <div class="tags-wrapper">
+          <ul class="production-list-block__tags-list">
+            <li class="tags-list__item">
+              Экстаркт бергамота
+              <button type="button" class="tags-list__close-snap snap">
+                <span class="visually-hidden">удалить тэг</span>
+              </button>
+            </li>
+          </ul>
+          <button class="production-list-block__add-snap snap" type="button">
+            <span class="visually-hidden">Добавить тэг</span>
+          </button>
+        </div>
+        <form class="production-list-block__select-form">
+          <div class="__select" data-state="">
+            <div class="__select__title" data-default="select">Сортировка по</div>
+            <div class="__select__content">
+              <input id="rating-select" class="__select__input" value="rating" type="radio" name="singleSelect" checked/>
+              <label for="rating-select" class="__select__label">По рейтингу</label>
+              <input id="rating-select" class="__select__input" value="rating" type="radio" name="singleSelect"/>
+              <label for="rating-select" class="__select__label">По рейтингу</label>
+              <input id="price-select" class="__select__input" value="price" type="radio" name="singleSelect" />
+              <label for="price-select" class="__select__label">По цене</label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <ul class="production-list-block__catalog-list">
+        <li>
+          <a class="production-list-block-card card card--hit">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card4.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                ТСА 10% DAY Peel 10% ТСА Dermagenetic
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Piruvic40 solution Medicare Proffessional
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--hit">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card2.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Dr.Hedison Premium Skin Care Returning E...
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--present">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card3.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Carboxy CO2 Lamic Cosmetici
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="card card--akcent">
+            <img class="card__img"
+              src="./src/images/content/popular-product-card--akcent.png" 
+              width="146" height="150"
+              alt="card pictur">
+              <div class="card-description__wrapper">
+                <div class="stars-rating">
+                  <svg class="stars-rating__svg">
+                    <use xlink:href="#full-star" />
+                    <use x="24px" xlink:href="#full-star" />
+                    <use x="48px" xlink:href="#full-star" />
+                    <use x="72px"xlink:href="#half-star" />
+                    <use x="96px" xlink:href="#empty-star" />
+                  </svg>
+                 </div>
+                <h3 class="card__title">
+                Dr Kraut Milano
+                <span class="card__title-sign">
+                  Softening gel with calendula
+                </span>
+                </h3>
+                <p class="card__price price">
+                1 300 грн
+                </p>
+              </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--hit">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card4.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                ТСА 10% DAY Peel 10% ТСА Dermagenetic
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--new">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card5.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                lios SPF 50 3in1 UVA/UVB De...
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--new">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card6.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                MELANOSTOP CREAM Bellеzza
+               </h3>
+               <p class="card__price price price--discount">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--hit">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card4.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                ТСА 10% DAY Peel 10% ТСА Dermagenetic
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Piruvic40 solution Medicare Proffessional
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--hit">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card2.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Dr.Hedison Premium Skin Care R...
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--present">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card3.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Carboxy CO2 Lamic Cosmetici
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--hit">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card4.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                ТСА 10% DAY Peel 10% ТСА Dermagenetic
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Piruvic40 solution Medicare Proffessional
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--hit">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card2.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Dr.Hedison Premium Skin Care Re...
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--present">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card3.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Carboxy CO2 Lamic Cosmetici
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="production-list-block-card card card--hit">
+            <img class="card__img"
+             src="./src/images/content/popular-product-card2.png" 
+             width="185" height="185"
+             alt="card pictur">
+             <div class="card-description__wrapper">
+               <h3 class="card__title">
+                Dr.Hedison Premium Skin Care Re...
+               </h3>
+               <p class="card__price price">
+                12 250 грн.
+               </p>
+             </div>
+          </a>
+        </li>
+        <li>
+          <a class="card card--akcent card--akcent-discount">
+            <img class="card__img"
+              src="./src/images/content/popular-product-card--akcent.png" 
+              width="146" height="150"
+              alt="card pictur">
+              <div class="card-description__wrapper">
+                <div class="card--akcent-discount__discount">
+                - 25%
+                </div>
+                <h3 class="card__title">
+                  Dr. hedison
+                <span class="card__title-sign">
+                  CC Cream SPF38 natural skin
+                </span>
+                </h3>
+                <button type="button" class="card--akcent-discount__btn btn">
+                Получить скидку
+                </button>
+              </div>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="pagination-block">
+      <ul class="pagination-block__pagination-list">
+        <li>
+          <button type="button" class="pagination__btn pagination__btn--prev btn" disabled>
+            Назад
+          </button>
+        </li>
+        <li>
+          <a href="#" class="pagination__link pagination__link--active">1</a>
+        </li>
+        <li>
+          <a href="#" class="pagination__link">2</a>
+        </li>
+        <li>
+          <a href="#" class="pagination__link">3</a>
+        </li>
+        <li>
+          <button type="button" class="pagination__btn pagination__btn--next btn">
+           Вперед
+          </button>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="page-footer-wrapper container">
+      <div class="page-footer__up-row">
+        <section class="instagram-block">
+          <h3 class="footer-row__title">
+            Мы в инстаграмме
+          </h3>
+          <ul class="instagram-list">
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="info-block">
+          <h3 class="footer-row__title">
+            Информация
+          </h3>
+          <ul class="info-block__info-list">
+            <li>
+              <a class="info-list__link">
+                Акции
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Программы ухода
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Бренды
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Оплата и доставка
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Ингридиенты
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Контакты
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="contact-block">
+          <h3 class="footer-row__title">
+            Контакты
+          </h3>
+          <div class="contact-block__inner-wrapper">
+            <span class="contact-block__telephone">
+              +380 (068) 455-50-53
+            </span>
+            <button class="contact-block__btn btn" type="button">
+              Обратный звонок
+            </button>
+            <a class="contact-block__email-link">
+              shop.krasunya.ua@gmail.com
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="page-footer__down-row">
+        <span class="page-footer__copyright">
+          © 2019 KRASUNYA интернет магазин лечащей косметики. все права защищены.
+        </span>
+        <a class="page-footer__confidentiality-link">
+          Конфиденциальность
+        </a>
+        <a class="page-footer__personally-data-link">
+          Персональные данные
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="menu-popup visually-hidden">
+    <nav class="menu-popup__nav">
+      <ul class="menu-popup__nav-list">
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Очищающие средства, тонизация
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Мезороллеры, аксессуары
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Средства для волос и тела
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Средства для орбитальной зоны
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Карбокситерапия
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Концентраты, мезококтейли
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Химические пилинги
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Средства с SPF, BB/CC-крема
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Маски
+          </a>
+        </li>
+        <li class="menu-popup__nav-item">
+          <a href="catalog.html">
+            Крема, сыворотки
+          </a>
+        </li>
+      </ul>
+      </nav>
+  </div>
+
+  <script src="./catalog.js"></script>
+</body>
+</html>

@@ -1,13 +1,752 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="./index.css">
-  <title>Accom</title>
-</head>
-<body>
-  
-  <script src="./index.js"></script>
-</body>
-</html>
+  <html lang="ru">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" type="text/css" href="./index.css">
+      <title>Krasunya</title>
+    </head>
+    <body>
+      <!-- SVG-stars для рейтинга и комментариев -->
+      <svg style="display: none;">
+        <symbol id="full-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 18.0737L5.82 22L7.46 14.6L2 9.62105L9.19 8.97895L12 2L14.81 8.97895L22 9.62105L16.54 14.6L18.18 22L12 18.0737Z" fill="#EC8453"/>
+        </symbol>
+        <symbol id="half-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 9.62105L14.81 8.96842L12 2L9.19 8.97895L2 9.62105L7.46 14.6L5.82 22L12 18.0737L18.18 22L16.55 14.6L22 9.62105ZM12 16.1053V6.31579L13.71 10.5684L18.09 10.9684L14.77 14L15.77 18.5053L12 16.1053Z" fill="#EC8453"/>
+        </symbol>
+        <symbol id="empty-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 9.62105L14.81 8.96842L12 2L9.19 8.97895L2 9.62105L7.46 14.6L5.82 22L12 18.0737L18.18 22L16.55 14.6L22 9.62105ZM12 16.1053L8.24 18.4947L9.24 13.9895L5.92 10.9579L10.3 10.5579L12 6.31579L13.71 10.5684L18.09 10.9684L14.77 14L15.77 18.5053L12 16.1053Z" fill="#EC8453"/>
+        </symbol>
+        <symbol id="comment-marker" width="38" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path opacity="0.14" fill-rule="evenodd" clip-rule="evenodd" d="M20.1455 35.72C20.3455 34.88 20.1655 34 19.6055 33.08L10.1255 17.42C9.56547 16.46 9.00547 15.72 8.44547 15.2C9.00547 14.76 9.56547 14.04 10.1255 13.04L18.0194 0H9.41253L0.105469 14.54V15.92L15.0455 39.26L18.5255 37.58C19.4455 37.14 19.9855 36.52 20.1455 35.72ZM27.1725 0L17.8655 14.54V15.92L32.8055 39.26L36.2855 37.58C37.2055 37.14 37.7455 36.52 37.9055 35.72C38.1055 34.88 37.9255 34 37.3655 33.08L27.8855 17.42C27.3255 16.46 26.7655 15.72 26.2055 15.2C26.7655 14.76 27.3255 14.04 27.8855 13.04L35.7794 0H27.1725Z" fill="#EC966D"/>
+        </symbol>
+      </svg>
+      <!-- SVG-stars для рейтинга -->
+      <header class="page-header page-header--fon">
+        <section class="header-block header-block--index-page container">
+          <div class="header-left-block__wrapper">
+            <div class="header-left-block">
+              <div class="header-left-block__inner-wrapper">
+                <img class="header-left-block__logo" src="./src/images/content/KRASUNYA.png" width="140" height="18"
+                  alt="logo-krasunya"/>
+                <button class="header-left-block__catalog-snap snap" type="button">
+                  Каталог косметики
+                </button>
+                <button class="header-left-block__search-snap snap" type="button">
+                  <span class="visually-hidden">Открыть форму поиска</span>
+                </button>
+                <form class="header-left-block__search-form visually-hidden">
+                  <div class="search-form__inner-wrapper">
+                    <button class="search-form__close-snap snap" type="button">
+                      <span class="visually-hidden">
+                        Закрыть форму поиска
+                      </span>
+                    </button>
+                    <input class="search-form__input" type="search" />
+                  </div>
+                  <button class="search-form__submit-snap snap" type="submit">
+                    <span class="visually-hidden">
+                      Выполнить поиск
+                    </span>
+                  </button>
+                </form>
+                <div class="header-left-block__progress-bar visually-hidden">
+                  <span class="bar">
+                    <span class="scale"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="header-right-block">
+            <nav class="header-right-block__site-nav">
+              <ul class="site-nav__list nav-list">
+                <li>
+                  <a href="login-favorite.html" class="site-nav__item site-nav__item--favorite">
+                    <span class="visually-hidden">Избранное</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="login-profile.html" class="site-nav__item site-nav__item--login">
+                    <span class="visually-hidden">Личный кабинет</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="order.html" class="site-nav__item site-nav__item--basket">
+                    <span class="visually-hidden">Корзина</span>
+                  </a>
+                </li>
+              </ul>
+              <button class="site-nav__btn btn" type="button">
+                Подбор косметики
+              </button>
+            </nav>
+          </div>
+        </section>
+      </header>
+
+      <main class="page-main">
+        <section class="banner-block container">
+          <div class="banner-block__left-section">
+            <strong class="banner-block__slogan">Профессиональный уход дома!</strong>
+            <span class="banner-block__description">
+            Преобретите медицинскую косметику для ухода за собой, не пользуясь услугами косметолога.
+            </span>
+            <button class="banner-block__btn btn-fon" type="button">
+            Подобрать косметику под себя
+            </button>
+          </div>
+          <div class="banner-block__banner-products">
+            <ul class="banner-products__list">
+              <li class="banner-products__list-item">
+                <figure>
+                  <a href="card.html" class="banner-img banner-img--z-index">
+                    <img src="./src/images/content/banner-big-img.png"
+                    width="178" height="473" alt="product-banner imagination">
+                  </a>
+                  <figcaption class="first-figcaption">
+                    <div class="small-card">
+                      <img class="small-card__img" 
+                      src="./src/images/content/small-product-card.png"
+                      alt="small product card imagine" width="63" height="63" />
+                      <div class="small-card-description__wrapper">
+                        <h3 class="small-card__title">
+                         Гидрогелевые патчи Dr. Hedison 
+                        </h3>
+                        <span class="small-card__price price price--discount">
+                         12 250 грн.
+                       </span>
+                      </div>
+                    </div>
+                  </figcaption>
+                </figure>
+              </li>
+              <li class="banner-products__list-item">
+               <figure>
+                 <a href="card.html" class="banner-img">
+                  <img src="./src/images/content/banner-small-img.png"
+                  width="144" height="386" alt="product-banner imagination">
+                 </a>
+                 <figcaption class="two-figcaption">
+                   <div class="small-card">
+                     <img class="small-card__img" 
+                     src="./src/images/content/small-product-card.png"
+                     alt="small product card imagine" width="63" height="63" />
+                     <div class="small-card-description__wrapper">
+                       <h3 class="small-card__title">
+                        Гидрогелевые патчи Dr. Hedison 
+                       </h3>
+                       <span class="small-card__price price price--discount">
+                         12 250 грн.
+                       </span>
+                     </div>
+                   </div>
+                 </figcaption>
+               </figure>
+             </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="catalog-block container">
+          <div class="catalog-block__description">
+            <h2 class="catalog-block__title">
+              Категории
+            </h2>
+            <span class="catalog-block__slogan">
+              Современные технологии и лучшие традиции классической косметологии на службе вашей красоты и здоровья.
+            </span>
+          </div>
+          <ul class="catalog-block__list">
+            <li class="catalog-block__list-item catalog-block__list-item--one">
+              <a href="catalog.html" class="link">Очищающие средства, тонизация</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--five">
+              <a href="catalog.html" class="link">Мезороллеры, аксессуары</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--nine">
+              <a href="catalog.html" class="link">Средства для волос и тела</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--two">
+              <a href="catalog.html" class="link">Средства для орбитальной зоны</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--six">
+              <a href="catalog.html" class="link">Карбокситерапия</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--ten">
+              <a href="catalog.html" class="link">Средства с SPF, BB/СС-крема</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--three">
+              <a href="catalog.html" class="link">Крема, сыворотки</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--seven">
+              <a href="catalog.html" class="link">Маски</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--four">
+              <a href="catalog.html" class="link">Химические пилинги</a>
+            </li>
+            <li class="catalog-block__list-item catalog-block__list-item--eight">
+              <a href="catalog.html" class="link">Концентраты, мезококтейли</a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="about-block">
+          <div class="about-block__out-wrapper container">
+            <div class="about-block__wrapper">
+              <h3 class="about-block__slogan">
+                Наш товар не купить в магазинах
+              </h3>
+              <div class="about-block__description">
+                В нашем портфеле — продукты известных мировых производителей профессиональной косметики и космецевтики, не только полностью удовлетворяющие запросам клиентов, но и отвечающие высоким требованиям профессионалов, работающих с ними.
+              </div>
+              <button class="about-block__btn btn-fon" type="button">
+                Подобрать косметику
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="bestseller-block container">
+          <h2 class="bestseller-block__title">
+            Популярные товары
+          </h2>
+          <p class="bestseller-block__description">
+            Чаще всего у нас покупают эти товары, потому что они лучше всего помогают женщинам.
+          </p>
+          <ul class="bestseller-block__product-list product-list">
+            <li>
+              <a class="card--popullar card">
+                <img class="card__img"
+                 src="./src/images/content/popular-product-card.png" 
+                 width="275" height="275"
+                 alt="card pictur">
+                 <div class="card-description__wrapper">
+                   <h3 class="card__title">
+                    Piruvic40 solution Medicare Proffessional
+                   </h3>
+                   <p class="card__price price">
+                    12 250 грн.
+                   </p>
+                 </div>
+              </a>
+            </li>
+            <li>
+              <a class="card--popullar card card--hit">
+                <img class="card__img"
+                 src="./src/images/content/popular-product-card2.png" 
+                 width="275" height="275"
+                 alt="card pictur">
+                 <div class="card-description__wrapper">
+                   <h3 class="card__title">
+                    Dr.Hedison Premium Skin Care Returning Eye Patch.
+                   </h3>
+                   <p class="card__price price">
+                    12 250 грн.
+                   </p>
+                 </div>
+              </a>
+            </li>
+            <li>
+              <a class="card--popullar card card--present">
+                <img class="card__img"
+                 src="./src/images/content/popular-product-card3.png" 
+                 width="275" height="275"
+                 alt="card pictur">
+                 <div class="card-description__wrapper">
+                   <h3 class="card__title">
+                    Carboxy CO2 Lamic Cosmetici
+                   </h3>
+                   <p class="card__price price">
+                    12 250 грн.
+                   </p>
+                 </div>
+              </a>
+            </li>
+            <li>
+              <a class="card--popullar card card--hit">
+                <img class="card__img"
+                 src="./src/images/content/popular-product-card4.png" 
+                 width="275" height="275"
+                 alt="card pictur">
+                 <div class="card-description__wrapper">
+                   <h3 class="card__title">
+                    ТСА 10% DAY Peel 10% ТСА Dermagenetic
+                   </h3>
+                   <p class="card__price price">
+                    12 250 грн.
+                   </p>
+                 </div>
+              </a>
+            </li>
+            <li>
+              <a class="card--popullar card card--new">
+                <img class="card__img"
+                 src="./src/images/content/popular-product-card5.png" 
+                 width="275" height="275"
+                 alt="card pictur">
+                 <div class="card-description__wrapper">
+                   <h3 class="card__title">
+                    lios SPF 50 3in1 UVA/UVB Dermagenetic
+                   </h3>
+                   <p class="card__price price">
+                    12 250 грн.
+                   </p>
+                 </div>
+              </a>
+            </li>
+            <li>
+              <a class="card--popullar card card--new">
+                <img class="card__img"
+                 src="./src/images/content/popular-product-card6.png" 
+                 width="275" height="275"
+                 alt="card pictur">
+                 <div class="card-description__wrapper">
+                   <h3 class="card__title">
+                    MELANOSTOP CREAM Bellеzza
+                   </h3>
+                   <p class="card__price price price--discount">
+                    12 250 грн.
+                   </p>
+                 </div>
+              </a>
+            </li>
+            <li>
+              <a class="card--popullar card card--popullar--akcent">
+                <img class="card__img"
+                 src="./src/images/content/popular-product-card--akcent.png" 
+                 width="201" height="207"
+                 alt="card pictur">
+                 <div class="card-description__wrapper">
+                   <div class="stars-rating">
+                    <svg class="stars-rating__svg">
+                      <use xlink:href="#full-star" />
+                      <use x="24px" xlink:href="#full-star" />
+                      <use x="48px" xlink:href="#full-star" />
+                      <use x="72px"xlink:href="#half-star" />
+                      <use x="96px" xlink:href="#empty-star" />
+                    </svg>
+                   </div>
+                   <h3 class="card__title">
+                    Dr Kraut Milano
+                    <span class="card__title-sign">
+                      Softening gel with calendula
+                    </span>
+                   </h3>
+                   <p class="card__price price">
+                    1 300 грн
+                   </p>
+                 </div>
+              </a>
+            </li>
+          </ul>
+          <button class="bestseller-block__btn btn" type="button">Показать больше</button>
+        </section>
+
+        <section class="selection-block">
+          <div class="selection-block__wrapper container">
+            <div class="selection-block__titles">
+              <b class="selection-block__slogan">Не знаете что нужно?</b>
+              <p class="selection-block__description">
+                Мы можем помочь вам выбрать из нашего каталога именно то, что вам нужно, так как косметика очень спецефическая наши специалисты помогут сделать окончательный выбор
+              </p>
+            </div>
+            <div class="selection-block__assortment">
+              <button class="selection-block__btn btn-fon" type="button">
+                Пройти подбор
+              </button>
+            </div>
+            <div class="selection-block__question">
+              <button class="selection-block__btn btn-fon" type="button">
+                Задать вопрос
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="article-block">
+          <div class="article-block__wrapper container">
+            <b class="article-block__slogan">
+              Хотите узнать какой именно уход нужен?
+            </b>
+            <div class="article-block__articles-wrapper">
+              <ul class="article-block__article-list">
+                <li class="article">
+                  <a>
+                    <h3 class="article__title">
+                      Патчи для зоны вокруг глаз: что это такое и зачем они нужны?
+                    </h3>
+                    <p class="article__description">
+                      Во многих онлайн-магазинах рекомендуют оставлять патчина ночь, мы не рекомендуем оставлять их на ночь, чтобы вовремя сна не образовались заломы и не оттянуть нежную кожу под глазами.
+                    </p>
+                  </a>
+                </li>
+                <li class="article article--small">
+                  <a>
+                    <h3 class="article__title">
+                      Мезороллер: який обрати?
+                    </h3>
+                    <p class="article__description">
+                      Вірно підібраний інструмент для мікроголчастої терапії —половина успіху. Дуже важливо обрати мезороллер з характеристиками, що ідеально підійдуть саме Вам.                  
+                    </p>
+                  </a>
+                </li>
+                <li class="article article--small">
+                  <a>
+                    <h3 class="article__title">
+                      ЭТАПЫ СТАРЕНИЯ КОЖИ.
+                    </h3>
+                    <p class="article__description">
+                      Вся жизнь за минуту.                  
+                    </p>
+                  </a>
+                </li>
+                <li class="article">
+                  <a>
+                    <h3 class="article__title">
+                      Патчи для зоны вокруг глаз: что это такое и зачем они нужны?
+                    </h3>
+                    <p class="article__description">
+                      Во многих онлайн-магазинах рекомендуют оставлять патчина ночь, мы не рекомендуем оставлять их на ночь, чтобы вовремя сна не образовались заломы и не оттянуть нежнуюкожу под глазами.           
+                    </p>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <button class="article-block__btn btn" type="button">
+              Читать все программы
+            </button>
+          </div>
+        </section>
+
+        <section class="comment-block container--comment-block">
+          <h2 class="comment-block__title">
+            Отзывы наших клиентов
+          </h2>
+          <ul class="comment-block__comments-list">
+            <li class="comment">
+              <img class="comment__img" src="./src/images/content/comment-img.png"
+                width="177" height="241" alt="product imagine" />
+              <div class="comment-wrapper">
+                <svg class="comment-wrapper__marker">
+                  <use xlink:href="#comment-marker" />
+                </svg>
+                <h3 class="comment__user-name">
+                  Надежда Радевич,
+                  <span class="comment__substr">пишет о:</span>
+                </h3>
+                <a href="" class="comment__card-title">
+                  Dr.Hedison Premium Skin Care Returning Eye...
+                </a>
+                <p class="comment__text">
+                  Патчи это моя слабость. Ощущение очень-очень комфортное после применения в течении, как минимум, суток даже без последующего применения крема. Мешки действительно подтянулись, кожа, от природы сухая.
+
+                </p>
+                <p class="comment__date"> 9 ноября 2019</p>
+              </div>
+            </li>
+            <li class="comment">
+              <img class="comment__img" src="./src/images/content/comment-img.png"
+                width="177" height="241" alt="product imagine" />
+              <div class="comment-wrapper">
+                <svg class="comment-wrapper__marker">
+                  <use xlink:href="#comment-marker" />
+                </svg>
+                <h3 class="comment__user-name">
+                  Надежда Радевич,
+                  <span class="comment__substr">пишет о:</span>
+                </h3>
+                <a href="" class="comment__card-title">
+                  Dr.Hedison Premium Skin Care Returning Eye...
+                </a>
+                <p class="comment__text">
+                  Патчи это моя слабость. Ощущение очень-очень комфортное после применения в течении, как минимум, суток даже без последующего применения крема. Мешки действительно подтянулись, кожа, от природы сухая.
+
+                </p>
+                <p class="comment__date"> 9 ноября 2019</p>
+              </div>
+            </li>
+            <li class="comment">
+              <img class="comment__img" src="./src/images/content/comment-img.png"
+                width="177" height="241" alt="product imagine" />
+              <div class="comment-wrapper">
+                <svg class="comment-wrapper__marker">
+                  <use xlink:href="#comment-marker" />
+                </svg>
+                <h3 class="comment__user-name">
+                  Надежда Радевич,
+                  <span class="comment__substr">пишет о:</span>
+                </h3>
+                <a href="" class="comment__card-title">
+                  Dr.Hedison Premium Skin Care Returning Eye...
+                </a>
+                <p class="comment__text">
+                  Патчи это моя слабость. Ощущение очень-очень комфортное после применения в течении, как минимум, суток даже без последующего применения крема. Мешки действительно подтянулись, кожа, от природы сухая.
+
+                </p>
+                <p class="comment__date"> 9 ноября 2019</p>
+              </div>
+            </li>
+            <li class="comment">
+              <img class="comment__img" src="./src/images/content/comment-img.png"
+                width="177" height="241" alt="product imagine" />
+              <div class="comment-wrapper">
+                <svg class="comment-wrapper__marker">
+                  <use xlink:href="#comment-marker" />
+                </svg>
+                <h3 class="comment__user-name">
+                  Надежда Радевич,
+                  <span class="comment__substr">пишет о:</span>
+                </h3>
+                <a href="" class="comment__card-title">
+                  Dr.Hedison Premium Skin Care Returning Eye...
+                </a>
+                <p class="comment__text">
+                  Патчи это моя слабость. Ощущение очень-очень комфортное после применения в течении, как минимум, суток даже без последующего применения крема. Мешки действительно подтянулись, кожа, от природы сухая.
+
+                </p>
+                <p class="comment__date"> 9 ноября 2019</p>
+              </div>
+            </li>
+          </ul>
+          <button class="comment-block__btn btn" type="button">
+            Показать больше
+          </button>
+        </section>
+
+        <section class="clients-block container">
+          <h2 class="clients-block__title">
+            Наши покупатели
+          </h2>
+          <p class="clients-block__description">
+            Сотни женщин уже пользуются нашими товарами и получают профессиональный уход как в кабинете косметолога у себя дома
+          </p>
+          <ul class="clients-block__clients-list">
+            <li>
+              <figure class="client">
+                <img class="client__img" src="./src/images/content/client-img.png"
+                width="275" height="275"
+                />
+                <figcaption class="client__email">
+                  <a href="">@example</a> 
+                </figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure class="client">
+                <img class="client__img" src="./src/images/content/client-img.png"
+                width="275" height="275"
+                />
+                <figcaption class="client__email">
+                  <a href="">@example</a> 
+                </figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure class="client">
+                <img class="client__img" src="./src/images/content/client-img.png"
+                width="275" height="275"
+                />
+                <figcaption class="client__email">
+                  <a href="">@example</a> 
+                </figcaption>
+              </figure>
+            </li>
+            <li>
+              <figure class="client">
+                <img class="client__img" src="./src/images/content/client-img.png"
+                width="275" height="275"
+                />
+                <figcaption class="client__email">
+                  <a href="">@example</a> 
+                </figcaption>
+              </figure>
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="page-footer">
+        <div class="page-footer-wrapper container">
+          <div class="page-footer__up-row">
+            <section class="instagram-block">
+              <h3 class="footer-row__title">
+                Мы в инстаграмме
+              </h3>
+              <ul class="instagram-list">
+                <li>
+                  <a class="instagramm-list__item">
+                    <img src="./src/images/content/instagram-img.png"
+                      width="71" height="71"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a class="instagramm-list__item">
+                    <img src="./src/images/content/instagram-img.png"
+                      width="71" height="71"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a class="instagramm-list__item">
+                    <img src="./src/images/content/instagram-img.png"
+                      width="71" height="71"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a class="instagramm-list__item">
+                    <img src="./src/images/content/instagram-img.png"
+                      width="71" height="71"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a class="instagramm-list__item">
+                    <img src="./src/images/content/instagram-img.png"
+                      width="71" height="71"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a class="instagramm-list__item">
+                    <img src="./src/images/content/instagram-img.png"
+                      width="71" height="71"
+                    />
+                  </a>
+                </li>
+              </ul>
+            </section>
+
+            <section class="info-block">
+              <h3 class="footer-row__title">
+                Информация
+              </h3>
+              <ul class="info-block__info-list">
+                <li>
+                  <a class="info-list__link">
+                    Акции
+                  </a>
+                </li>
+                <li>
+                  <a class="info-list__link">
+                    Программы ухода
+                  </a>
+                </li>
+                <li>
+                  <a class="info-list__link">
+                    Бренды
+                  </a>
+                </li>
+                <li>
+                  <a class="info-list__link">
+                    Оплата и доставка
+                  </a>
+                </li>
+                <li>
+                  <a class="info-list__link">
+                    Ингридиенты
+                  </a>
+                </li>
+                <li>
+                  <a class="info-list__link">
+                    Контакты
+                  </a>
+                </li>
+              </ul>
+            </section>
+
+            <section class="contact-block">
+              <h3 class="footer-row__title">
+                Контакты
+              </h3>
+              <div class="contact-block__inner-wrapper">
+                <span class="contact-block__telephone">
+                  +380 (068) 455-50-53
+                </span>
+                <button class="contact-block__btn btn" type="button">
+                  Обратный звонок
+                </button>
+                <a class="contact-block__email-link">
+                  shop.krasunya.ua@gmail.com
+                </a>
+              </div>
+            </section>
+          </div>
+          <div class="page-footer__down-row">
+            <span class="page-footer__copyright">
+              © 2019 KRASUNYA интернет магазин лечащей косметики. все права защищены.
+            </span>
+            <a class="page-footer__confidentiality-link">
+              Конфиденциальность
+            </a>
+            <a class="page-footer__personally-data-link">
+              Персональные данные
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      <div class="menu-popup visually-hidden">
+        <nav class="menu-popup__nav">
+          <ul class="menu-popup__nav-list">
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Очищающие средства, тонизация
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Мезороллеры, аксессуары
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Средства для волос и тела
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Средства для орбитальной зоны
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Карбокситерапия
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Концентраты, мезококтейли
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Химические пилинги
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Средства с SPF, BB/CC-крема
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Маски
+              </a>
+            </li>
+            <li class="menu-popup__nav-item">
+              <a href="catalog.html">
+                Крема, сыворотки
+              </a>
+            </li>
+          </ul>
+          </nav>
+      </div>
+
+      <script src="./index.js"></script>
+    </body>
+  </html>

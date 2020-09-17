@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="./index.css">
+  <title>Корзина</title>
+</head>
+<body>
+  <!-- SVG-stars для рейтинга и комментариев -->
+  <svg style="display: none;">
+    <symbol id="full-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 18.0737L5.82 22L7.46 14.6L2 9.62105L9.19 8.97895L12 2L14.81 8.97895L22 9.62105L16.54 14.6L18.18 22L12 18.0737Z" fill="#EC8453"/>
+    </symbol>
+    <symbol id="half-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22 9.62105L14.81 8.96842L12 2L9.19 8.97895L2 9.62105L7.46 14.6L5.82 22L12 18.0737L18.18 22L16.55 14.6L22 9.62105ZM12 16.1053V6.31579L13.71 10.5684L18.09 10.9684L14.77 14L15.77 18.5053L12 16.1053Z" fill="#EC8453"/>
+    </symbol>
+    <symbol id="empty-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22 9.62105L14.81 8.96842L12 2L9.19 8.97895L2 9.62105L7.46 14.6L5.82 22L12 18.0737L18.18 22L16.55 14.6L22 9.62105ZM12 16.1053L8.24 18.4947L9.24 13.9895L5.92 10.9579L10.3 10.5579L12 6.31579L13.71 10.5684L18.09 10.9684L14.77 14L15.77 18.5053L12 16.1053Z" fill="#EC8453"/>
+    </symbol>
+    <symbol id="comment-marker" width="38" height="40" viewBox="0 0 38 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path opacity="0.14" fill-rule="evenodd" clip-rule="evenodd" d="M20.1455 35.72C20.3455 34.88 20.1655 34 19.6055 33.08L10.1255 17.42C9.56547 16.46 9.00547 15.72 8.44547 15.2C9.00547 14.76 9.56547 14.04 10.1255 13.04L18.0194 0H9.41253L0.105469 14.54V15.92L15.0455 39.26L18.5255 37.58C19.4455 37.14 19.9855 36.52 20.1455 35.72ZM27.1725 0L17.8655 14.54V15.92L32.8055 39.26L36.2855 37.58C37.2055 37.14 37.7455 36.52 37.9055 35.72C38.1055 34.88 37.9255 34 37.3655 33.08L27.8855 17.42C27.3255 16.46 26.7655 15.72 26.2055 15.2C26.7655 14.76 27.3255 14.04 27.8855 13.04L35.7794 0H27.1725Z" fill="#EC966D"/>
+    </symbol>
+  </svg>
+<!-- SVG-stars для рейтинга -->
+<header class="page-header z-index">
+  <section class="header-block container">
+    <div class="header-left-block__wrapper">
+      <div class="header-left-block">
+        <div class="header-left-block__inner-wrapper">
+          <img class="header-left-block__logo" src="./src/images/content/KRASUNYA.png" width="140" height="18"
+            alt="logo-krasunya"/>
+          <button class="header-left-block__catalog-snap snap" type="button">
+            Каталог косметики
+          </button>
+          <button class="header-left-block__search-snap snap" type="button">
+            <span class="visually-hidden">Открыть форму поиска</span>
+          </button>
+          <form class="header-left-block__search-form visually-hidden">
+            <div class="search-form__inner-wrapper">
+              <button class="search-form__close-snap snap" type="button">
+                <span class="visually-hidden">
+                  Закрыть форму поиска
+                </span>
+              </button>
+              <input class="search-form__input" type="search" />
+            </div>
+            <button class="search-form__submit-snap snap" type="submit">
+              <span class="visually-hidden">
+                Выполнить поиск
+              </span>
+            </button>
+          </form>
+          <div class="header-left-block__progress-bar visually-hidden">
+            <span class="bar">
+              <span class="scale"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header-right-block">
+      <nav class="header-right-block__site-nav" style="position: fixed;">
+        <ul class="site-nav__list nav-list">
+          <li>
+            <a href="" class="site-nav__item site-nav__item--favorite">
+              <span class="visually-hidden">Избранное</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="site-nav__item site-nav__item--login">
+              <span class="visually-hidden">Личный кабинет</span>
+            </a>
+          </li>
+          <li>
+            <a href="" class="site-nav__item site-nav__item--basket">
+              <span class="visually-hidden">Корзина</span>
+            </a>
+          </li>
+        </ul>
+        <button class="site-nav__btn btn" type="button">
+          Подбор косметики
+        </button>
+      </nav>
+    </div>
+  </section>
+</header>
+
+  <main class="page-main--basket container">
+    <nav class="breadcrumbs-nav">
+      <ul class="breadcrumbs-nav__list">
+        <li>
+          <a href="index.html" class="breadcrumbs-nav__link link">
+            Главная
+          </a>
+        </li>
+        <li>
+          <a href="" class="breadcrumbs-nav__link link link--active">
+            Корзина
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <section class="basket-list-block">
+      <h2 class="basket-list-block__title">Ваша корзина</h2>
+      <ul class="basket-list-block__items">
+        <li>
+          <a class="basket-small-card card">
+            <img class="basket-small-card__img" 
+            src="./src/images/content/small-product-card.png"
+            alt="small product card imagine" width="72" height="84" />
+            <div class="basket-small-card-description__wrapper">
+              <h3 class="basket-small-card__title">
+               Гидрогелевые патчи Dr. Hedison 
+              </h3>
+              <p class="basket-small-card__weight">
+               Вес (гр): 35
+             </p>
+            </div>
+          </a>
+          <div class="order-card__btns-column">
+            <button class="order-card__down-snap order-card__snap snap" type="button">
+              <span class="visually-hidden">Уменьшить количество товара</span>
+            </button>
+            <p class="order-card__amount-product">1</p>
+            <button class="order-card__up-snap order-card__snap snap" type="button">
+              <span class="visually-hidden">Увеличить количество товара</span>
+            </button>
+          </div>
+          <p class="basket-list-block__price"> 12 250 грн.</p>
+          <button type="button" class="basket-list-block__delete-snap snap">
+            <span class="visually-hidden">Удалить из корзины</span>
+          </button>
+        </li>
+        <li>
+          <a class="basket-small-card card">
+            <img class="basket-small-card__img" 
+            src="./src/images/content/basket-card.png"
+            alt="small product card imagine" width="72" height="84" />
+            <div class="basket-small-card-description__wrapper">
+              <h3 class="basket-small-card__title">
+               Гидрогелевые патчи Dr. Hedison 
+              </h3>
+              <p class="basket-small-card__weight">
+               Вес (гр): 35
+             </p>
+            </div>
+          </a>
+          <div class="order-card__btns-column">
+            <button class="order-card__down-snap order-card__snap snap" type="button">
+              <span class="visually-hidden">Уменьшить количество товара</span>
+            </button>
+            <p class="order-card__amount-product">1</p>
+            <button class="order-card__up-snap order-card__snap snap" type="button">
+              <span class="visually-hidden">Увеличить количество товара</span>
+            </button>
+          </div>
+          <p class="basket-list-block__price"> 12 250 грн.</p>
+          <button type="button" class="basket-list-block__delete-snap snap">
+            <span class="visually-hidden">Удалить из корзины</span>
+          </button>
+        </li>
+      </ul>
+      <div class="basket-list-block__total">
+        <div class="basket-list-block__discount-column">
+          <form>
+            <label>
+              Промокод:
+              <input type="text" class="basket-list-block__promo-input" />
+            </label>
+            <button type="submit" class="basket-list-block__submit-snap snap">
+              <span class="visually-hidden">Отправить промокод</span>
+            </button>
+          </form>
+        </div>
+        <div class="basket-list-block__total-price">
+          <p>
+            Итого:
+            <span class="total-price">24 500 грн.</span>
+          </p>
+        </div>
+      </div>
+      <a href="catalog.html" class="basket-list-block__link-btn btn">В магазин</a>
+    </section>
+    
+    <section class="total-info-block">
+      <div class="sticky-block">
+        <div class="inner-wrapper__sticky">
+          <h2 class="total-info-block__title">
+            Сумма к оплате
+          </h2>
+          <p>
+            Товаров на:
+            <span class="total-info-block__total-price">24 500 грн.</span>
+          </p>
+          <p>
+            Общий вес:
+            <span class="total-info-block__total-weight">0,07 кг</span>
+          </p>
+          <p>
+            Скидка:
+            <span class="total-info-block__total-discount">0 грн.</span>
+          </p>
+          <a href="order.html" class="total-info-block__link-order-btn btn-fon">
+            Оформить заказ
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <div class="page-footer-wrapper container">
+      <div class="page-footer__up-row">
+        <section class="instagram-block">
+          <h3 class="footer-row__title">
+            Мы в инстаграмме
+          </h3>
+          <ul class="instagram-list">
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+            <li>
+              <a class="instagramm-list__item">
+                <img src="./src/images/content/instagram-img.png"
+                  width="71" height="71"
+                />
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="info-block">
+          <h3 class="footer-row__title">
+            Информация
+          </h3>
+          <ul class="info-block__info-list">
+            <li>
+              <a class="info-list__link">
+                Акции
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Программы ухода
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Бренды
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Оплата и доставка
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Ингридиенты
+              </a>
+            </li>
+            <li>
+              <a class="info-list__link">
+                Контакты
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="contact-block">
+          <h3 class="footer-row__title">
+            Контакты
+          </h3>
+          <div class="contact-block__inner-wrapper">
+            <span class="contact-block__telephone">
+              +380 (068) 455-50-53
+            </span>
+            <button class="contact-block__btn btn" type="button">
+              Обратный звонок
+            </button>
+            <a class="contact-block__email-link">
+              shop.krasunya.ua@gmail.com
+            </a>
+          </div>
+        </section>
+      </div>
+      <div class="page-footer__down-row">
+        <span class="page-footer__copyright">
+          © 2019 KRASUNYA интернет магазин лечащей косметики. все права защищены.
+        </span>
+        <a class="page-footer__confidentiality-link">
+          Конфиденциальность
+        </a>
+        <a class="page-footer__personally-data-link">
+          Персональные данные
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../basket.js"></script>
+</body>
+</html>
